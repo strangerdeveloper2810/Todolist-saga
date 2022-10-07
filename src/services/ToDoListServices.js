@@ -40,4 +40,4 @@ export class ToDoListServices {
   };
 }
 
-export const TDLServices = new ToDoListServices();
+export const ToDoListApiServices = new ToDoListServices();

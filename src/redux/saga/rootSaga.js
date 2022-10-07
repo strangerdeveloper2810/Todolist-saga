@@ -1,3 +1,8 @@
+import {all} from "redux-saga/effects";
+import * as TDLSagaAction from "./ToDoListSagaAction"
+
 export function * rootSaga() {
-    console.log("rootSaga");
+    yield all([
+        TDLSagaAction.FollowActionGetAllTaskApi()
+    ]);
 }

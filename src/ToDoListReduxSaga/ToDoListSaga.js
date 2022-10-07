@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./ToDoListSaga.css";
+import { useSelector, useDispatch } from "react-redux";
+import {GET_ALL_TASK_API_SAGA} from "../redux/constants/ToDoListConstants"
 export default function ToDoListSaga(props) {
   const renderDate = () => {
     const date = new Date();
@@ -32,6 +34,10 @@ export default function ToDoListSaga(props) {
     },
   });
 
+  const dispatch = useDispatch();
+
+  const { taskList } = useSelector((state) => state.ToDoListReducer);
+
   const handleChangeInput = (event) => {
     let { name, value } = event.target;
 
@@ -39,7 +45,7 @@ export default function ToDoListSaga(props) {
 
     const newError = { ...state.error };
 
-      let regexString = /^[a-z A-Z 0-9]+$/;
+    let regexString = /^[a-z A-Z 0-9]+$/;
 
     if (!regexString.test() || value.trim() === "") {
       newError[name] = name + " is invalid !";
@@ -53,9 +59,63 @@ export default function ToDoListSaga(props) {
       error: newError,
     });
   };
-  const renderTaskToDo = () => {};
 
-  const renderTaskComplete = () => {};
+  const renderTaskToDo = () => {
+    return taskList
+      .filter((task) => !task.status)
+      .map((task, index) => (
+        <li key={index}>
+          <span>{task.taskName}</span>
+          <div className="buttons">
+            <button className="remove" type="button">
+              <i className="fa fa-trash-alt" />
+            </button>
+            <button type="button" className="complete">
+              <i className="far fa-check-circle" />
+            </button>
+          </div>
+        </li>
+      ));
+  };
+
+  const renderTaskComplete = () => {
+    return taskList
+      .filter((task) => task.status)
+      .map((task, index) => {
+        return (
+          <li key={index}>
+            <span>{task.taskName}</span>
+            <div className="buttons">
+              <button className="remove" type="button">
+                <i className="fa fa-trash-alt" />
+              </button>
+              <button type="button" className="complete">
+                <i className="fa fa-undo" />
+              </button>
+            </div>
+          </li>
+        );
+      });
+  };
+
+  const handleGetAllTask = () => {
+    // dispatch lên saga
+    dispatch({
+      type: GET_ALL_TASK_API_SAGA
+    });
+  };
+
+  useEffect(() => {
+    handleGetAllTask()
+  }, []);
+
+  const handleAddTask = (taskName) => {};
+
+  const handleDeleteTask = (taskName) => {};
+
+  const handleDoneTask = (taskName) => {};
+
+  const handleRejectTask = (taskName) => {};
 
   return (
     <div className="card">
@@ -91,35 +151,12 @@ export default function ToDoListSaga(props) {
             {/* Uncompleted tasks */}
 
             <ul className="todo" id="todo">
-              {/* <li>
-                <span>Đi ngủ</span>
-                <div className="buttons">
-                  <button className="remove" type="button">
-                    <i className="fa fa-trash-alt" />
-                  </button>
-                  <button className="complete" type="button">
-                    <i className="fa fa-check-circle" />
-                  </button>
-                </div>
-              </li> */}
-
               {renderTaskToDo()}
             </ul>
 
             {/* Completed tasks */}
 
             <ul className="todo" id="completed">
-              {/* <li>
-                <span>Ăn sáng</span>
-                <div className="buttons">
-                  <button className="remove" type="button">
-                    <i className="fa fa-trash-alt" />
-                  </button>
-                  <button className="complete" type="button">
-                    <i className="fa fa-undo" />
-                  </button>
-                </div>
-              </li> */}
               {renderTaskComplete()}
             </ul>
           </div>
