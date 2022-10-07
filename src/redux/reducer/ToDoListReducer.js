@@ -9,11 +9,11 @@ const ToDoListReducer = createSlice({
   initialState,
   reducers: {
     getAllTaskListAction: (state, action) => {
-      state.taskList = action.payload
+      state.taskList = action.payload;
     },
   },
 });
 
-export const {getAllTaskListAction} = ToDoListReducer.actions;
+export const { getAllTaskListAction } = ToDoListReducer.actions;
 
 export default ToDoListReducer.reducer;
