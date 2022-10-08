@@ -30,14 +30,14 @@ export class ToDoListServices {
 
   doneTaskApi = (taskName) => {
     return axios({
-      url: `${DOMAIN}/doneTask=${taskName}`,
+      url: `${DOMAIN}/doneTask?taskName=${taskName}`,
       method: "PUT",
     });
   };
 
   rejectTaskApi = (taskName) => {
     return axios({
-      url: `${DOMAIN}/rejectTask=${taskName}`,
+      url: `${DOMAIN}/rejectTask?taskName=${taskName}`,
       method: "PUT",
     });
   };

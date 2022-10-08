@@ -5,6 +5,8 @@ export function * rootSaga() {
     yield all([
         TDLSagaAction.FollowActionGetAllTaskApi(),
         TDLSagaAction.FollowActionAddTaskApi(),
-        TDLSagaAction.FollowActionDeleteTaskApi()
+        TDLSagaAction.FollowActionDeleteTaskApi(),
+        TDLSagaAction.FollowActionCheckTaskApi(),
+        TDLSagaAction.FollowActionRejectTaskApi(),
     ]);
 }
