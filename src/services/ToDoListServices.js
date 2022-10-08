@@ -11,10 +11,13 @@ export class ToDoListServices {
     });
   };
 
-  addTaskApi = () => {
+  addTaskApi = (taskName) => {
     return axios({
       url: `${DOMAIN}/AddTask`,
       method: "POST",
+      data: {
+        taskName: taskName,
+      },
     });
   };
 

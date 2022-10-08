@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./ToDoListSaga.css";
 import { useSelector, useDispatch } from "react-redux";
-import {GET_ALL_TASK_API_SAGA} from "../redux/constants/ToDoListConstants"
+import {
+  ADD_TASK_API_SAGA,
+  GET_ALL_TASK_API_SAGA,
+} from "../redux/constants/ToDoListConstants";
 export default function ToDoListSaga(props) {
   const renderDate = () => {
     const date = new Date();
@@ -101,15 +104,21 @@ export default function ToDoListSaga(props) {
   const handleGetAllTask = () => {
     // dispatch lên saga
     dispatch({
-      type: GET_ALL_TASK_API_SAGA
+      type: GET_ALL_TASK_API_SAGA,
     });
   };
 
   useEffect(() => {
-    handleGetAllTask()
+    handleGetAllTask();
   }, []);
 
-  const handleAddTask = (taskName) => {};
+  const handleAddTask = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: ADD_TASK_API_SAGA,
+      taskName: state.values.taskName,
+    });
+  };
 
   const handleDeleteTask = (taskName) => {};
 
@@ -123,7 +132,12 @@ export default function ToDoListSaga(props) {
         <img src="./img/X2oObC4.png" alt="background" />
       </div>
 
-      <div className="card__body">
+      <form
+        className="card__body"
+        onSubmit={(event) => {
+          handleAddTask(event);
+        }}
+      >
         <div className="card__content">
           <div className="card__title">
             <h2>My Tasks</h2>
@@ -140,7 +154,13 @@ export default function ToDoListSaga(props) {
                   handleChangeInput(event);
                 }}
               />
-              <button id="addItem">
+              <button
+                id="addItem"
+                type="button"
+                onClick={(event) => {
+                  handleAddTask(event);
+                }}
+              >
                 <i className="fa fa-plus" />
               </button>
             </div>
@@ -161,7 +181,7 @@ export default function ToDoListSaga(props) {
             </ul>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }

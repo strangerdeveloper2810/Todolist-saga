@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   taskList: [],
+  isLoading: false,
 };
 
 const ToDoListReducer = createSlice({

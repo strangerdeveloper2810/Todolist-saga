@@ -3,6 +3,7 @@ import * as TDLSagaAction from "./ToDoListSagaAction"
 
 export function * rootSaga() {
     yield all([
-        TDLSagaAction.FollowActionGetAllTaskApi()
+        TDLSagaAction.FollowActionGetAllTaskApi(),
+        TDLSagaAction.FollowActionAddTaskApi(),
     ]);
 }
