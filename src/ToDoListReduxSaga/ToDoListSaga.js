@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   ADD_TASK_API_SAGA,
   GET_ALL_TASK_API_SAGA,
+  DELETE_TASK_API_SAGA,
+  CHECK_TASK_API_SAGA,
+  REJECT_TASK_API_SAGA,
 } from "../redux/constants/ToDoListConstants";
 export default function ToDoListSaga(props) {
   const renderDate = () => {
@@ -70,10 +73,22 @@ export default function ToDoListSaga(props) {
         <li key={index}>
           <span>{task.taskName}</span>
           <div className="buttons">
-            <button className="remove" type="button">
+            <button
+              className="remove"
+              type="button"
+              onClick={() => {
+                handleDeleteTask(task.taskName);
+              }}
+            >
               <i className="fa fa-trash-alt" />
             </button>
-            <button type="button" className="complete">
+            <button
+              type="button"
+              className="complete"
+              onClick={() => {
+                handleDoneTask(task.taskName);
+              }}
+            >
               <i className="far fa-check-circle" />
             </button>
           </div>
@@ -89,10 +104,22 @@ export default function ToDoListSaga(props) {
           <li key={index}>
             <span>{task.taskName}</span>
             <div className="buttons">
-              <button className="remove" type="button">
+              <button
+                className="remove"
+                type="button"
+                onClick={() => {
+                  handleDeleteTask(task.taskName);
+                }}
+              >
                 <i className="fa fa-trash-alt" />
               </button>
-              <button type="button" className="complete">
+              <button
+                type="button"
+                className="complete"
+                onClick={() => {
+                  handleRejectTask(task.taskName);
+                }}
+              >
                 <i className="fa fa-undo" />
               </button>
             </div>
@@ -120,11 +147,26 @@ export default function ToDoListSaga(props) {
     });
   };
 
-  const handleDeleteTask = (taskName) => {};
+  const handleDeleteTask = (taskName) => {
+    dispatch({
+      type: DELETE_TASK_API_SAGA,
+      taskName,
+    });
+  };
 
-  const handleDoneTask = (taskName) => {};
+  const handleDoneTask = (taskName) => {
+    dispatch({
+      type: CHECK_TASK_API_SAGA,
+      taskName,
+    });
+  };
 
-  const handleRejectTask = (taskName) => {};
+  const handleRejectTask = (taskName) => {
+    dispatch({
+      type: REJECT_TASK_API_SAGA,
+      taskName,
+    });
+  };
 
   return (
     <div className="card">

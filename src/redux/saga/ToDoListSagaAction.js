@@ -8,6 +8,9 @@ import { takeLatest, call, put } from "redux-saga/effects";
 import {
   ADD_TASK_API_SAGA,
   GET_ALL_TASK_API_SAGA,
+  DELETE_TASK_API_SAGA,
+  CHECK_TASK_API_SAGA,
+  REJECT_TASK_API_SAGA
 } from "../constants/ToDoListConstants";
 import { STATUS__CODE } from "../../util/constants/settingSystem";
 import { ToDoListApiServices } from "../../services/ToDoListServices";
@@ -52,4 +55,29 @@ function* addTaskApiAction(action) {
 
 export function* FollowActionAddTaskApi() {
   yield takeLatest(ADD_TASK_API_SAGA, addTaskApiAction);
+}
+
+
+
+function * deleteTaskApiAction(action) {
+  const {taskName} = action;
+  try {
+    const {status} = yield call(()=>{return ToDoListApiServices.deleteTaskApi(taskName)});
+
+    if(status === STATUS__CODE.SUCCESS) {
+      yield put({
+        type: GET_ALL_TASK_API_SAGA
+      });
+    }
+    else {
+      console.log("error");
+    }
+  }
+  catch(error) {
+    console.log(error);
+  }
+}
+
+export function * FollowActionDeleteTaskApi(){
+  yield takeLatest(DELETE_TASK_API_SAGA, deleteTaskApiAction);
 }
