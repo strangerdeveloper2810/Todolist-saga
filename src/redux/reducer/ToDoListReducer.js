@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   taskList: [],
-  isLoading: false,
 };
 
 const ToDoListReducer = createSlice({
@@ -10,8 +9,10 @@ const ToDoListReducer = createSlice({
   initialState,
   reducers: {
     getAllTaskListAction: (state, action) => {
+      
       state.taskList = action.taskList;
     },
+   
   },
 });
 

@@ -1,4 +1,4 @@
-// import Loading from "./components/Loading/Loading";
+import Loading from "./components/Loading/Loading";
 import ToDoListSaga from "./ToDoListReduxSaga/ToDoListSaga";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Home from "./pages/Home/Home";
@@ -6,7 +6,7 @@ import Footer from "./pages/Footer/Footer";
 function App() {
   return (
     <BrowserRouter>
-      {/* <Loading /> */}
+      <Loading />
       <Switch>
         <Route exact path="/home" component={Home} />
         <Route exact path="/footer" component={Footer} />

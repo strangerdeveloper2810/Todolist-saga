@@ -1,9 +1,3 @@
-/*
-07/10/2022
-author: Stranger
-Viết action Todolist saga
-*/
-
 import { takeLatest, call, put } from "redux-saga/effects";
 import {
   ADD_TASK_API_SAGA,
@@ -14,11 +8,11 @@ import {
 } from "../constants/ToDoListConstants";
 import { STATUS__CODE } from "../../util/constants/settingSystem";
 import { ToDoListApiServices } from "../../services/ToDoListServices";
+import Swal from "sweetalert2";
 
 function* getAllTaskApiAction(action) {
   try {
     let { data, status } = yield call(ToDoListApiServices.getAllTaskApi);
-    // yield delay(2000);
     if (status === STATUS__CODE.SUCCESS) {
       yield put({
         type: "ToDoListReducer/getAllTaskListAction",
@@ -46,10 +40,24 @@ function* addTaskApiAction(action) {
       yield put({
         type: GET_ALL_TASK_API_SAGA,
       });
-      // console.log(status);
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Add Task Success!",
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: `${error}`,
+    });
   }
 }
 
@@ -68,11 +76,25 @@ function* deleteTaskApiAction(action) {
       yield put({
         type: GET_ALL_TASK_API_SAGA,
       });
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Delete Task Success!",
+      });
     } else {
-      console.log("error");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: `${error}`,
+    });
   }
 }
 
@@ -91,11 +113,25 @@ function* checkTaskApiAction(action) {
       yield put({
         type: GET_ALL_TASK_API_SAGA,
       });
+
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Check Task Success!",
+      });
     } else {
-      console.log("error");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: `${error}`,
+    });
   }
 }
 
@@ -114,11 +150,24 @@ function* rejectTaskApiAction(action) {
       yield put({
         type: GET_ALL_TASK_API_SAGA,
       });
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Reject Task Success!",
+      });
     } else {
-      console.log("error");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
     }
   } catch (error) {
-    console.log(error);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: `${error}`,
+    });
   }
 }
 
